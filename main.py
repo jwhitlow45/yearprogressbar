@@ -1,23 +1,24 @@
 import os
-import json
 import time
 from datetime import datetime
 import calendar
 
+from dotenv import load_dotenv
 from mastodon import Mastodon
+
+load_dotenv()
 
 PROGRESS_BAR_FILLED_CHAR = '|'
 PROGRESS_BAR_EMPTY_CHAR = ':'
 PROGRESS_BAR_SCALAR = 1
 
 def main():
-    CREDS = get_bot_credentials()
     print('Application credentials loaded!')
     
     api = Mastodon(
-        CREDS['CLIENT_ID'], 
-        CREDS['CLIENT_SECRET'], 
-        CREDS['ACCESS_TOKEN'],
+        os.environ.get('CLIENT_ID'), 
+        os.environ.get('CLIENT_SECRET'), 
+        os.environ.get('ACCESS_TOKEN'),
         api_base_url='https://botsin.space'
     )
     
@@ -47,15 +48,6 @@ def generate_progress_bar(progress: int):
     bar += PROGRESS_BAR_FILLED_CHAR * int(progress * PROGRESS_BAR_SCALAR)
     bar += PROGRESS_BAR_EMPTY_CHAR * int((100 - progress) * PROGRESS_BAR_SCALAR)
     return bar
-    
-
-def get_bot_credentials() -> dict:
-    filepath = os.path.join('secrets.json')
-    try:
-        with open(filepath, 'r') as FILE:
-            return json.loads(FILE.read())
-    except FileNotFoundError:
-        return {}
 
 if __name__ == '__main__':
     main()

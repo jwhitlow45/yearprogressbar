@@ -3,10 +3,9 @@ name: Toot Year Progress
 
 on:
   schedule:
-    # Runs "once per day"
+    # Runs at 00:00 UTC
     - cron: '0 0 * * *'
   workflow_dispatch:
-
 jobs:
   build:
 

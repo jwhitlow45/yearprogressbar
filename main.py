@@ -28,11 +28,12 @@ def main():
     bar += f'  {year_percent}%'
     
     while not posted:
-        try:
-            api.status_post(bar)
-            posted = True
-        except Exception:
-            time.sleep(10)
+        # try:
+        api.status_post(bar)
+        posted = True
+        # except Exception:
+            # time.sleep(10)
+            
 
 
 def calculate_year_percentage():

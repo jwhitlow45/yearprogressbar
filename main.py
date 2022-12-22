@@ -12,6 +12,8 @@ PROGRESS_BAR_FILLED_CHAR = '|'
 PROGRESS_BAR_EMPTY_CHAR = ':'
 PROGRESS_BAR_SCALAR = 1
 
+RETRY_FREQUENCY = 10
+
 def main():
     print('Application credentials loaded!')
     
@@ -28,11 +30,13 @@ def main():
     bar += f'  {year_percent}%'
     
     while not posted:
-        # try:
-        api.status_post(bar)
-        posted = True
-        # except Exception:
-            # time.sleep(10)
+        try:
+            api.status_post(bar)
+            posted = True
+            print('Toot succeeded!')
+        except Exception:
+            print(f'Toot failed! Retrying in {RETRY_FREQUENCY} seconds...')
+            time.sleep(RETRY_FREQUENCY)
             
 
 

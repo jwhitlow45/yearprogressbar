@@ -40,14 +40,14 @@ def main():
             
 
 
-def calculate_year_percentage():
+def calculate_year_percentage() -> str:
     now = datetime.now()
     year_start = datetime(now.year, 1, 1)
     
     time_delta = now - year_start
     return round(time_delta.days / (365 + calendar.isleap(now.year)) * 100)
 
-def generate_progress_bar(progress: int):
+def generate_progress_bar(progress: int) -> None:
     bar: str = ''
     
     bar += PROGRESS_BAR_FILLED_CHAR * int(progress * PROGRESS_BAR_SCALAR)
